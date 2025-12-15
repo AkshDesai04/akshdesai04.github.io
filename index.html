@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aksh Desai - Portfolio</title>
+    <title>Aksh Desai - AI Engineer</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome -->
@@ -12,20 +12,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* Custom Scrollbar to match VS Code */
-        ::-webkit-scrollbar {
-            width: 10px;
-            height: 10px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #1e1e1e; 
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #424242; 
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #4f4f4f; 
-        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 10px; height: 10px; }
+        ::-webkit-scrollbar-track { background: #1e1e1e; }
+        ::-webkit-scrollbar-thumb { background: #424242; }
+        ::-webkit-scrollbar-thumb:hover { background: #4f4f4f; }
 
         body {
             font-family: 'Inter', sans-serif;
@@ -34,9 +25,7 @@
             overflow: hidden; 
         }
         
-        .code-font {
-            font-family: 'Fira Code', monospace;
-        }
+        .code-font { font-family: 'Fira Code', monospace; }
 
         /* VS Code Theme Colors */
         .bg-vscode-dark { background-color: #1e1e1e; }
@@ -47,125 +36,87 @@
         .bg-vscode-tab-inactive { background-color: #2d2d2d; }
         .bg-vscode-status { background-color: #007acc; }
         .border-vscode { border-color: #3e3e42; }
-        .text-vscode-yellow { color: #dcdcaa; }
-        .text-vscode-blue { color: #569cd6; }
-        .text-vscode-orange { color: #ce9178; }
-        .text-vscode-green { color: #6a9955; }
-        .text-vscode-pink { color: #c586c0; }
         
+        /* Syntax Highlighting Colors */
+        .syntax-keyword { color: #569cd6; } /* blue */
+        .syntax-control { color: #c586c0; } /* purple */
+        .syntax-string { color: #ce9178; } /* orange */
+        .syntax-function { color: #dcdcaa; } /* yellow */
+        .syntax-class { color: #4ec9b0; } /* teal */
+        .syntax-variable { color: #9cdcfe; } /* light blue */
+        .syntax-comment { color: #6a9955; } /* green */
+        .syntax-number { color: #b5cea8; } /* light green */
+        
+        /* Activity Bar Active State */
+        .activity-item.active { border-left-color: white; color: white; }
+        .activity-item { border-left: 2px solid transparent; }
+
         /* Animations */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .animate-fade-in {
-            animation: fadeIn 0.3s ease-out forwards;
-        }
+        .animate-fade-in { animation: fadeIn 0.3s ease-out forwards; }
 
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-        .cursor-blink {
-            animation: blink 1s step-end infinite;
-        }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        .cursor-blink { animation: blink 1s step-end infinite; }
 
-        /* Tab Close Button Visibility */
-        .tab-item:hover .tab-close {
-            opacity: 1;
-        }
+        .tab-item:hover .tab-close { opacity: 1; }
         
         .timeline-line::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 15px;
-            width: 2px;
-            background: #3e3e42;
-            z-index: 0;
+            content: ''; position: absolute; top: 0; bottom: 0; left: 15px; width: 2px; background: #3e3e42; z-index: 0;
         }
     </style>
 </head>
 <body class="h-screen w-screen flex flex-col text-sm">
 
-    <!-- Main Layout -->
     <div class="flex-1 flex overflow-hidden">
         
-        <!-- Activity Bar -->
-        <div class="w-12 bg-vscode-activity flex flex-col items-center py-4 z-20 hidden md:flex">
-            <div class="mb-6 cursor-pointer text-white border-l-2 border-white w-full text-center py-1 opacity-100">
-                <i class="far fa-copy text-2xl"></i>
+        <!-- Activity Bar (Navigation) -->
+        <div class="w-12 bg-vscode-activity flex flex-col items-center py-2 z-20">
+            <div class="activity-item active w-full py-3 cursor-pointer text-gray-400 hover:text-white flex justify-center transition" onclick="switchSection('home')" title="Home">
+                <i class="fas fa-home text-2xl"></i>
             </div>
-            <div class="mb-6 cursor-pointer text-gray-400 hover:text-white transition w-full text-center">
-                <i class="fas fa-search text-2xl"></i>
+            <div class="activity-item w-full py-3 cursor-pointer text-gray-400 hover:text-white flex justify-center transition" onclick="switchSection('about')" title="About">
+                <i class="fas fa-user-circle text-2xl"></i>
             </div>
-            <div class="mb-6 cursor-pointer text-gray-400 hover:text-white transition w-full text-center">
-                <i class="fas fa-code-branch text-2xl"></i>
+            <div class="activity-item w-full py-3 cursor-pointer text-gray-400 hover:text-white flex justify-center transition" onclick="switchSection('projects')" title="Projects">
+                <i class="fas fa-code text-2xl"></i>
             </div>
-            <div class="mt-auto cursor-pointer text-gray-400 hover:text-white transition w-full text-center mb-4">
-                <i class="fas fa-cog text-2xl"></i>
+            <div class="activity-item w-full py-3 cursor-pointer text-gray-400 hover:text-white flex justify-center transition" onclick="switchSection('experience')" title="Experience">
+                <i class="fas fa-briefcase text-2xl"></i>
+            </div>
+            <div class="activity-item w-full py-3 cursor-pointer text-gray-400 hover:text-white flex justify-center transition" onclick="switchSection('education')" title="Education">
+                <i class="fas fa-graduation-cap text-2xl"></i>
+            </div>
+            <div class="activity-item w-full py-3 cursor-pointer text-gray-400 hover:text-white flex justify-center transition" onclick="switchSection('certificates')" title="Certificates">
+                <i class="fas fa-certificate text-2xl"></i>
+            </div>
+            <div class="activity-item w-full py-3 cursor-pointer text-gray-400 hover:text-white flex justify-center transition" onclick="switchSection('contact')" title="Contact">
+                <i class="fas fa-envelope text-2xl"></i>
+            </div>
+            
+            <div class="mt-auto mb-4 w-full flex flex-col items-center space-y-4">
+                <div class="cursor-pointer text-gray-400 hover:text-white"><i class="fas fa-cog text-2xl"></i></div>
             </div>
         </div>
 
         <!-- Sidebar (Explorer) -->
         <div id="sidebar" class="w-64 bg-vscode-sidebar flex flex-col border-r border-vscode transition-all duration-300 absolute md:relative z-10 h-full transform -translate-x-full md:translate-x-0">
-            <div class="h-10 text-xs font-bold text-gray-400 flex items-center px-4 tracking-wide">
-                EXPLORER
-                <button id="close-sidebar-mobile" class="ml-auto md:hidden p-2">
-                    <i class="fas fa-times"></i>
-                </button>
+            <div class="h-10 text-xs font-bold text-gray-400 flex items-center px-4 tracking-wide uppercase">
+                <span id="sidebar-title">EXPLORER</span>
+                <button id="close-sidebar-mobile" class="ml-auto md:hidden p-2"><i class="fas fa-times"></i></button>
             </div>
             
-            <!-- Portfolio Folder -->
+            <!-- Dynamic File List -->
             <div class="px-0">
-                <div class="flex items-center px-2 py-1 cursor-pointer text-gray-300 hover:bg-gray-700 font-bold text-xs" onclick="toggleFolder('portfolio-files', this)">
-                    <i class="fas fa-chevron-down mr-2 text-[10px] w-3 transition-transform"></i>
-                    <span>AKSH-DESAI</span>
+                <div class="flex items-center px-2 py-1 cursor-pointer text-gray-300 font-bold text-xs" onclick="toggleFolder('folder-content')">
+                    <i class="fas fa-chevron-down mr-2 text-[10px] w-3 transition-transform" id="folder-icon"></i>
+                    <span id="folder-name" class="uppercase">AKSH-DESAI</span>
                 </div>
                 
-                <div id="portfolio-files" class="ml-0">
-                    <!-- File: home.jsx -->
-                    <div class="file-item flex items-center px-6 py-1 cursor-pointer text-gray-400 hover:bg-[#2a2d2e] hover:text-white transition border-l-2 border-transparent hover:border-white" onclick="openFile('home')">
-                        <i class="fab fa-react text-[#61dafb] mr-2 w-4 text-center"></i>
-                        <span>home.jsx</span>
-                    </div>
-                    
-                    <!-- File: about.html -->
-                    <div class="file-item flex items-center px-6 py-1 cursor-pointer text-gray-400 hover:bg-[#2a2d2e] hover:text-white transition border-l-2 border-transparent hover:border-white" onclick="openFile('about')">
-                        <i class="fab fa-html5 text-[#e34c26] mr-2 w-4 text-center"></i>
-                        <span>about.html</span>
-                    </div>
-
-                    <!-- File: projects.js -->
-                    <div class="file-item flex items-center px-6 py-1 cursor-pointer text-gray-400 hover:bg-[#2a2d2e] hover:text-white transition border-l-2 border-transparent hover:border-white" onclick="openFile('projects')">
-                        <i class="fab fa-js text-[#f7df1e] mr-2 w-4 text-center"></i>
-                        <span>projects.js</span>
-                    </div>
-
-                    <!-- File: experience.json -->
-                    <div class="file-item flex items-center px-6 py-1 cursor-pointer text-gray-400 hover:bg-[#2a2d2e] hover:text-white transition border-l-2 border-transparent hover:border-white" onclick="openFile('experience')">
-                        <i class="fas fa-code text-vscode-yellow mr-2 w-4 text-center"></i>
-                        <span>experience.json</span>
-                    </div>
-
-                    <!-- File: education.md -->
-                    <div class="file-item flex items-center px-6 py-1 cursor-pointer text-gray-400 hover:bg-[#2a2d2e] hover:text-white transition border-l-2 border-transparent hover:border-white" onclick="openFile('education')">
-                        <i class="fab fa-markdown text-[#569cd6] mr-2 w-4 text-center"></i>
-                        <span>education.md</span>
-                    </div>
-
-                    <!-- File: certifications.xml -->
-                    <div class="file-item flex items-center px-6 py-1 cursor-pointer text-gray-400 hover:bg-[#2a2d2e] hover:text-white transition border-l-2 border-transparent hover:border-white" onclick="openFile('certifications')">
-                        <i class="fas fa-file-code text-vscode-orange mr-2 w-4 text-center"></i>
-                        <span>certifications.xml</span>
-                    </div>
-                    
-                    <!-- File: contact.css -->
-                    <div class="file-item flex items-center px-6 py-1 cursor-pointer text-gray-400 hover:bg-[#2a2d2e] hover:text-white transition border-l-2 border-transparent hover:border-white" onclick="openFile('contact')">
-                        <i class="fab fa-css3-alt text-[#2965f1] mr-2 w-4 text-center"></i>
-                        <span>contact.css</span>
-                    </div>
+                <div id="folder-content" class="ml-0 mt-1">
+                    <!-- Injected via JS -->
                 </div>
             </div>
         </div>
@@ -173,688 +124,438 @@
         <!-- Editor Area -->
         <div class="flex-1 flex flex-col bg-vscode-dark min-w-0">
             
-            <!-- Mobile Toggle -->
+            <!-- Mobile Header -->
             <div class="md:hidden h-10 bg-vscode-sidebar flex items-center px-4 border-b border-vscode">
-                <button onclick="toggleSidebar()" class="text-gray-300 mr-4">
-                    <i class="fas fa-bars"></i>
-                </button>
+                <button onclick="toggleSidebar()" class="text-gray-300 mr-4"><i class="fas fa-bars"></i></button>
                 <span class="text-xs text-gray-400">Aksh Desai</span>
             </div>
 
-            <!-- Tabs Header -->
-            <div class="h-9 bg-vscode-header flex overflow-x-auto no-scrollbar" id="tabs-container">
-                <!-- Tabs will be injected here via JS -->
-            </div>
+            <!-- Tabs -->
+            <div class="h-9 bg-vscode-header flex overflow-x-auto no-scrollbar" id="tabs-container"></div>
 
             <!-- Breadcrumbs -->
             <div class="h-6 bg-vscode-dark flex items-center px-4 text-xs text-gray-500 border-b border-vscode select-none">
-                <span class="mr-2">aksh-desai</span>
+                <span id="breadcrumb-section" class="mr-2">home</span>
                 <i class="fas fa-chevron-right text-[10px] mr-2"></i>
-                <span id="breadcrumb-filename" class="text-gray-300">home.jsx</span>
+                <span id="breadcrumb-file" class="text-gray-300">main.py</span>
             </div>
 
-            <!-- Editor Content (Window) -->
-            <div class="flex-1 overflow-y-auto relative custom-scrollbar p-0" id="editor-content">
-                
-                <!-- 1. HOME (home.jsx) -->
-                <div id="content-home" class="p-8 md:p-16 max-w-4xl mx-auto h-full flex flex-col justify-center animate-fade-in">
-                    <div class="font-mono text-vscode-blue mb-4">import <span class="text-vscode-green">Torch</span>, <span class="text-vscode-green">CUDA</span> from <span class="text-vscode-orange">'ai-libs'</span>;</div>
-                    <div class="font-mono text-vscode-blue mb-8">
-                        class <span class="text-vscode-yellow">AkshDesai</span> extends <span class="text-vscode-green">AI_Engineer</span>:
-                    </div>
-
-                    <div class="pl-4 md:pl-8 border-l-2 border-gray-800">
-                        <h1 class="text-4xl md:text-6xl font-bold text-white mb-4">
-                            Hi, I'm <span class="text-vscode-blue">Aksh Desai</span>
-                        </h1>
-                        <h2 class="text-2xl md:text-3xl text-gray-400 mb-8 flex items-center">
-                            <span class="mr-2">></span>
-                            <span id="typewriter" class="text-vscode-green">AI Engineer | HPC Specialist</span>
-                            <span class="cursor-blink ml-1 bg-white w-2 h-6 inline-block"></span>
-                        </h2>
-                        
-                        <p class="text-gray-400 max-w-xl text-lg leading-relaxed mb-8">
-                            I design and develop scalable hardware and software solutions, optimizing performance from lightweight systems to High-Performance Computing (HPC) environments. 
-                        </p>
-
-                        <div class="flex gap-4">
-                            <button onclick="openFile('projects')" class="bg-vscode-blue hover:bg-blue-600 text-white px-6 py-2 rounded font-medium transition">
-                                View Projects
-                            </button>
-                            <button onclick="openFile('contact')" class="border border-white hover:bg-white hover:text-black text-white px-6 py-2 rounded font-medium transition">
-                                Contact Me
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="font-mono text-vscode-blue mt-8">
-                        # Based in Gujarat, India <br>
-                        profile = <span class="text-vscode-yellow">AkshDesai()</span>.init()
-                    </div>
-                </div>
-
-                <!-- 2. ABOUT (about.html) -->
-                <div id="content-about" class="hidden p-8 max-w-5xl mx-auto animate-fade-in">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-                        <div>
-                            <div class="font-mono text-gray-500 mb-2">&lt;!-- Profile --&gt;</div>
-                            <h2 class="text-3xl font-bold text-white mb-6">&lt;h2&gt; About Me &lt;/h2&gt;</h2>
-                            <p class="text-gray-300 mb-4 leading-relaxed">
-                                I am an <b>Intern Software Engineer</b> specializing in GPU server management and resource optimization. I create efficient, adaptable, and impact-driven technologies.
-                            </p>
-                            <p class="text-gray-300 mb-6 leading-relaxed">
-                                My expertise spans across <b>LLMs, RAG pipelines, CUDA optimization</b>, and <b>HPC environments</b>. I have architected production-scale AI systems performing RAG over 25M+ token knowledge bases and optimized inferencing times for real-time responsiveness.
-                            </p>
-                            <div class="p-4 bg-vscode-sidebar rounded border border-vscode">
-                                <h3 class="text-vscode-orange font-mono mb-2">&lt;!-- Soft Skills --&gt;</h3>
-                                <p class="text-gray-400 text-sm">Leadership, Communication, Critical Thinking, Decision Making, Time Management</p>
-                            </div>
-                        </div>
-
-                        <div>
-                            <h3 class="text-xl font-bold text-vscode-blue mb-4">Technical Skills</h3>
-                            
-                            <div class="mb-4">
-                                <h4 class="text-gray-400 text-sm font-mono mb-2">LANGUAGES</h4>
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="px-3 py-1 bg-gray-800 rounded text-vscode-yellow text-sm font-mono border border-gray-700">Python</span>
-                                    <span class="px-3 py-1 bg-gray-800 rounded text-vscode-yellow text-sm font-mono border border-gray-700">Java</span>
-                                    <span class="px-3 py-1 bg-gray-800 rounded text-vscode-yellow text-sm font-mono border border-gray-700">Go</span>
-                                    <span class="px-3 py-1 bg-gray-800 rounded text-vscode-yellow text-sm font-mono border border-gray-700">Dart</span>
-                                </div>
-                            </div>
-
-                            <div class="mb-4">
-                                <h4 class="text-gray-400 text-sm font-mono mb-2">ML STACK</h4>
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="px-3 py-1 bg-gray-800 rounded text-blue-400 text-sm font-mono border border-gray-700">PyTorch</span>
-                                    <span class="px-3 py-1 bg-gray-800 rounded text-blue-400 text-sm font-mono border border-gray-700">TensorFlow</span>
-                                    <span class="px-3 py-1 bg-gray-800 rounded text-blue-400 text-sm font-mono border border-gray-700">TensorRT</span>
-                                    <span class="px-3 py-1 bg-gray-800 rounded text-blue-400 text-sm font-mono border border-gray-700">ONNX</span>
-                                    <span class="px-3 py-1 bg-gray-800 rounded text-blue-400 text-sm font-mono border border-gray-700">LangChain</span>
-                                </div>
-                            </div>
-
-                            <div class="mb-4">
-                                <h4 class="text-gray-400 text-sm font-mono mb-2">DATABASES & VECTORS</h4>
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="px-3 py-1 bg-gray-800 rounded text-green-400 text-sm font-mono border border-gray-700">MySQL</span>
-                                    <span class="px-3 py-1 bg-gray-800 rounded text-green-400 text-sm font-mono border border-gray-700">Redis</span>
-                                    <span class="px-3 py-1 bg-gray-800 rounded text-green-400 text-sm font-mono border border-gray-700">FAISS</span>
-                                    <span class="px-3 py-1 bg-gray-800 rounded text-green-400 text-sm font-mono border border-gray-700">Pinecone</span>
-                                    <span class="px-3 py-1 bg-gray-800 rounded text-green-400 text-sm font-mono border border-gray-700">Milvus</span>
-                                </div>
-                            </div>
-
-                            <div class="mb-4">
-                                <h4 class="text-gray-400 text-sm font-mono mb-2">TOOLS</h4>
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="px-3 py-1 bg-gray-800 rounded text-purple-400 text-sm font-mono border border-gray-700">CUDA</span>
-                                    <span class="px-3 py-1 bg-gray-800 rounded text-purple-400 text-sm font-mono border border-gray-700">Docker</span>
-                                    <span class="px-3 py-1 bg-gray-800 rounded text-purple-400 text-sm font-mono border border-gray-700">Kubernetes</span>
-                                    <span class="px-3 py-1 bg-gray-800 rounded text-purple-400 text-sm font-mono border border-gray-700">NVIDIA Nsight</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 3. PROJECTS (projects.js) -->
-                <div id="content-projects" class="hidden p-8 max-w-6xl mx-auto animate-fade-in">
-                    <div class="font-mono text-gray-500 mb-6">// My Portfolio Projects array</div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pb-10">
-                        
-                        <!-- GIFT City GuideBot -->
-                        <div class="bg-vscode-sidebar border border-vscode rounded-lg overflow-hidden hover:border-vscode-blue transition group flex flex-col">
-                            <div class="p-5 flex-1">
-                                <div class="flex justify-between items-start mb-3">
-                                    <h3 class="text-lg font-bold text-vscode-blue">GIFT City GuideBot</h3>
-                                    <i class="fas fa-robot text-gray-500"></i>
-                                </div>
-                                <p class="text-gray-400 text-sm mb-4">AI chatbot using Mistral-Nemo (128k context) and RAG for urban interaction. Integrated Google Maps, Weather APIs, and FAISS for vector retrieval.</p>
-                                <div class="flex flex-wrap gap-2 mt-auto">
-                                    <span class="text-xs text-vscode-yellow">Python</span>
-                                    <span class="text-xs text-vscode-yellow">LangChain</span>
-                                    <span class="text-xs text-vscode-yellow">FAISS</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Py8K -->
-                        <div class="bg-vscode-sidebar border border-vscode rounded-lg overflow-hidden hover:border-vscode-blue transition group flex flex-col">
-                            <div class="p-5 flex-1">
-                                <div class="flex justify-between items-start mb-3">
-                                    <h3 class="text-lg font-bold text-vscode-blue">Py8K</h3>
-                                    <i class="fas fa-video text-gray-500"></i>
-                                </div>
-                                <p class="text-gray-400 text-sm mb-4">Trained ESRGAN model for 4K/8K image/video upscaling. Accelerated preprocessing using CUDA and optimized for 4 GPU distributed training.</p>
-                                <div class="flex flex-wrap gap-2 mt-auto">
-                                    <span class="text-xs text-vscode-yellow">Deep Learning</span>
-                                    <span class="text-xs text-vscode-yellow">CUDA</span>
-                                    <span class="text-xs text-vscode-yellow">FFMPEG</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- CUDA-Net -->
-                        <div class="bg-vscode-sidebar border border-vscode rounded-lg overflow-hidden hover:border-vscode-blue transition group flex flex-col">
-                            <div class="p-5 flex-1">
-                                <div class="flex justify-between items-start mb-3">
-                                    <h3 class="text-lg font-bold text-vscode-blue">CUDA-Net</h3>
-                                    <i class="fas fa-network-wired text-gray-500"></i>
-                                </div>
-                                <p class="text-gray-400 text-sm mb-4">Distributed client-server system allowing non-CUDA devices to execute CUDA code remotely via Python sockets.</p>
-                                <div class="flex flex-wrap gap-2 mt-auto">
-                                    <span class="text-xs text-vscode-yellow">Python</span>
-                                    <span class="text-xs text-vscode-yellow">Sockets</span>
-                                    <span class="text-xs text-vscode-yellow">C++</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Passive PDF Learner -->
-                        <div class="bg-vscode-sidebar border border-vscode rounded-lg overflow-hidden hover:border-vscode-blue transition group flex flex-col">
-                            <div class="p-5 flex-1">
-                                <div class="flex justify-between items-start mb-3">
-                                    <h3 class="text-lg font-bold text-vscode-blue">Passive PDF Learner</h3>
-                                    <i class="fas fa-book-reader text-gray-500"></i>
-                                </div>
-                                <p class="text-gray-400 text-sm mb-4">RAG-based platform using LLAMA 3.1 to summarize PDFs into daily notifications. Mobile app built with Flutter and Firebase.</p>
-                                <div class="flex flex-wrap gap-2 mt-auto">
-                                    <span class="text-xs text-vscode-yellow">RAG</span>
-                                    <span class="text-xs text-vscode-yellow">AWS</span>
-                                    <span class="text-xs text-vscode-yellow">Flutter</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Meeting Minutes Summarization -->
-                        <div class="bg-vscode-sidebar border border-vscode rounded-lg overflow-hidden hover:border-vscode-blue transition group flex flex-col">
-                            <div class="p-5 flex-1">
-                                <div class="flex justify-between items-start mb-3">
-                                    <h3 class="text-lg font-bold text-vscode-blue">Meeting Summarizer</h3>
-                                    <i class="fas fa-file-alt text-gray-500"></i>
-                                </div>
-                                <p class="text-gray-400 text-sm mb-4">Automated meeting transcript summarization using NLP and LLMs. Generates PDF reports and emails them to participants.</p>
-                                <div class="flex flex-wrap gap-2 mt-auto">
-                                    <span class="text-xs text-vscode-yellow">NLP</span>
-                                    <span class="text-xs text-vscode-yellow">LLMs</span>
-                                    <span class="text-xs text-vscode-yellow">Automation</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Network-Attached Data Server -->
-                        <div class="bg-vscode-sidebar border border-vscode rounded-lg overflow-hidden hover:border-vscode-blue transition group flex flex-col">
-                            <div class="p-5 flex-1">
-                                <div class="flex justify-between items-start mb-3">
-                                    <h3 class="text-lg font-bold text-vscode-blue">ML Data Server</h3>
-                                    <i class="fas fa-server text-gray-500"></i>
-                                </div>
-                                <p class="text-gray-400 text-sm mb-4">Kaggle-like local server for college network. 300 MB/s transfer speed. Multi-tier caching (Redis L1, SSD L2, HDD RAID L3).</p>
-                                <div class="flex flex-wrap gap-2 mt-auto">
-                                    <span class="text-xs text-vscode-yellow">Linux</span>
-                                    <span class="text-xs text-vscode-yellow">Redis</span>
-                                    <span class="text-xs text-vscode-yellow">RAID</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Open-ATS -->
-                        <div class="bg-vscode-sidebar border border-vscode rounded-lg overflow-hidden hover:border-vscode-blue transition group flex flex-col">
-                            <div class="p-5 flex-1">
-                                <h3 class="text-lg font-bold text-vscode-blue mb-2">Open-ATS</h3>
-                                <p class="text-gray-400 text-sm mb-4">Resume parser extracting 16 key details using NLP/RegEx. Supports PDF, DOCX, and OCR for images.</p>
-                                <span class="text-xs text-vscode-yellow">Python, NLP</span>
-                            </div>
-                        </div>
-
-                         <!-- Database Doodle -->
-                         <div class="bg-vscode-sidebar border border-vscode rounded-lg overflow-hidden hover:border-vscode-blue transition group flex flex-col">
-                            <div class="p-5 flex-1">
-                                <h3 class="text-lg font-bold text-vscode-blue mb-2">Database-Doodle</h3>
-                                <p class="text-gray-400 text-sm mb-4">GUI tool for cross-database querying (SQL, NoSQL, Flat files) and join chaining.</p>
-                                <span class="text-xs text-vscode-yellow">Java, SpringBoot</span>
-                            </div>
-                        </div>
-
-                         <!-- Suicidal Text Detection -->
-                         <div class="bg-vscode-sidebar border border-vscode rounded-lg overflow-hidden hover:border-vscode-blue transition group flex flex-col">
-                            <div class="p-5 flex-1">
-                                <h3 class="text-lg font-bold text-vscode-blue mb-2">Suicidal Text Detection</h3>
-                                <p class="text-gray-400 text-sm mb-4">Real-time detection system integrated with Discord/Telegram bots. 88% accuracy.</p>
-                                <span class="text-xs text-vscode-yellow">NLP, Sentiment Analysis</span>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-                <!-- 4. EXPERIENCE (experience.json) -->
-                <div id="content-experience" class="hidden p-8 max-w-4xl mx-auto animate-fade-in">
-                    <div class="font-mono text-vscode-green mb-6">
-                        {<br>
-                        &nbsp;&nbsp;"work_history": [<br>
-                    </div>
-
-                    <div class="relative timeline-line pl-8 space-y-8">
-                        
-                        <!-- Job 1 -->
-                        <div class="relative z-10">
-                            <div class="absolute -left-10 w-4 h-4 rounded-full bg-vscode-blue border-4 border-gray-900 mt-1.5"></div>
-                            <div class="bg-vscode-sidebar p-6 rounded-lg border border-vscode hover:border-gray-500 transition">
-                                <div class="flex justify-between items-start mb-2 flex-wrap">
-                                    <h3 class="text-xl font-bold text-vscode-blue">AI Engineer</h3>
-                                    <span class="text-vscode-green font-mono text-sm">Aug 2025 - Current</span>
-                                </div>
-                                <h4 class="text-gray-300 mb-4">Cilans System <span class="text-xs text-gray-500">Ahmedabad, Gujarat</span></h4>
-                                <ul class="list-disc list-inside text-gray-400 space-y-1 text-sm">
-                                    <li>Architected production-scale AI system (RAG over 25M+ token KB).</li>
-                                    <li>Engineered workflows integrating Gemini and OpenAI models.</li>
-                                    <li>Executed cost-optimization and improved inferencing time.</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <!-- Job 2 -->
-                        <div class="relative z-10">
-                            <div class="absolute -left-10 w-4 h-4 rounded-full bg-gray-600 border-4 border-gray-900 mt-1.5"></div>
-                            <div class="bg-vscode-sidebar p-6 rounded-lg border border-vscode hover:border-gray-500 transition">
-                                <div class="flex justify-between items-start mb-2 flex-wrap">
-                                    <h3 class="text-xl font-bold text-vscode-blue">Software Development Engineer</h3>
-                                    <span class="text-vscode-green font-mono text-sm">Mar 2025 - Jul 2025</span>
-                                </div>
-                                <h4 class="text-gray-300 mb-4">BosLeo Technology Pvt. Ltd. <span class="text-xs text-gray-500">Valsad</span></h4>
-                                <ul class="list-disc list-inside text-gray-400 space-y-1 text-sm">
-                                    <li>Created an entire project from scratch using Go, MySQL, and Echo.</li>
-                                    <li>Handled business analyst responsibilities and client requirements.</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <!-- Job 3 -->
-                        <div class="relative z-10">
-                            <div class="absolute -left-10 w-4 h-4 rounded-full bg-gray-600 border-4 border-gray-900 mt-1.5"></div>
-                            <div class="bg-vscode-sidebar p-6 rounded-lg border border-vscode hover:border-gray-500 transition">
-                                <div class="flex justify-between items-start mb-2 flex-wrap">
-                                    <h3 class="text-xl font-bold text-vscode-blue">HPC Server Student Coordinator</h3>
-                                    <span class="text-vscode-green font-mono text-sm">May 2024 - Jun 2024</span>
-                                </div>
-                                <h4 class="text-gray-300 mb-4">CSPIT, Charusat University</h4>
-                                <ul class="list-disc list-inside text-gray-400 space-y-1 text-sm">
-                                    <li>Managed user accounts and server health for HPC systems.</li>
-                                    <li>Repaired RAID arrays and optimized data access.</li>
-                                    <li>Hosted large-scale ML datasets for faster retrieval.</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <!-- Job 4 -->
-                        <div class="relative z-10">
-                            <div class="absolute -left-10 w-4 h-4 rounded-full bg-gray-600 border-4 border-gray-900 mt-1.5"></div>
-                            <div class="bg-vscode-sidebar p-6 rounded-lg border border-vscode hover:border-gray-500 transition">
-                                <div class="flex justify-between items-start mb-2 flex-wrap">
-                                    <h3 class="text-xl font-bold text-vscode-blue">Software Development Intern</h3>
-                                    <span class="text-vscode-green font-mono text-sm">May 2024 - Jun 2024</span>
-                                </div>
-                                <h4 class="text-gray-300 mb-4">Atul Ltd.</h4>
-                                <ul class="list-disc list-inside text-gray-400 space-y-1 text-sm">
-                                    <li>Developed Applicant Tracking System (ATS) using Python and Flask.</li>
-                                    <li>Integrated OCR and NLP for resume parsing.</li>
-                                    <li>Built a Meeting Summarization System using LLAMA and RAG.</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                    </div>
-                    
-                    <div class="font-mono text-vscode-green mt-6">
-                        &nbsp;&nbsp;]<br>
-                        }
-                    </div>
-                </div>
-
-                <!-- 5. EDUCATION (education.md) -->
-                <div id="content-education" class="hidden p-8 max-w-4xl mx-auto animate-fade-in">
-                    <div class="font-mono text-gray-400 mb-6"># Education History</div>
-                    
-                    <div class="space-y-8">
-                        <div class="border-l-2 border-vscode-blue pl-6">
-                            <h2 class="text-2xl font-bold text-white">CSPIT - Charusat University</h2>
-                            <p class="text-vscode-blue text-lg">Bachelor of Technology in Information Technology</p>
-                            <p class="text-gray-500 font-mono text-sm mb-4">Anand, Gujarat | Aug 2026</p>
-                            <ul class="list-disc list-inside text-gray-400 text-sm space-y-2">
-                                <li>Organized 5+ hackathons, managing 1200+ attendees in largest event.</li>
-                                <li>Administered 4 HPC servers (Linux, GPU/CPU heavy configs).</li>
-                                <li>Served as Anti-Ragging Committee Student Coordinator.</li>
-                                <li>Developed 10+ high-scalability projects.</li>
-                            </ul>
-                        </div>
-
-                        <div class="border-l-2 border-gray-600 pl-6">
-                            <h2 class="text-2xl font-bold text-white">Tapi Diploma Engineering College, GTU</h2>
-                            <p class="text-vscode-blue text-lg">Diploma in Information Technology</p>
-                            <p class="text-gray-500 font-mono text-sm mb-4">Surat, Gujarat | Jul 2023</p>
-                            <ul class="list-disc list-inside text-gray-400 text-sm space-y-2">
-                                <li>Developed 10+ small-scale projects across diverse domains.</li>
-                                <li>Led and coordinated student projects and events.</li>
-                            </ul>
-                        </div>
-
-                        <div class="border-l-2 border-gray-700 pl-6">
-                            <h2 class="text-lg font-bold text-gray-300">Atul Vidyalaya</h2>
-                            <p class="text-gray-500">ICSE | Feb 2020</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 6. CERTIFICATIONS (certifications.xml) -->
-                <div id="content-certifications" class="hidden p-8 max-w-4xl mx-auto animate-fade-in">
-                    <div class="font-mono text-gray-400 mb-4">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</div>
-                    <div class="font-mono text-vscode-blue mb-6">&lt;certifications&gt;</div>
-
-                    <div class="pl-4 space-y-4 font-mono text-sm">
-                        
-                        <div class="group">
-                            <span class="text-gray-500">&lt;provider name="</span><span class="text-vscode-orange">NVIDIA Deep Learning Institute</span><span class="text-gray-500">"&gt;</span>
-                            <div class="pl-4 text-vscode-green border-l border-gray-800 ml-1">
-                                <div>Scaling Workloads Across Multiple GPUs With CUDA C++</div>
-                                <div>Optimizing CUDA Machine Learning Codes With NVIDIA Nsight</div>
-                                <div>Fundamentals of Accelerated Computing With CUDA Python</div>
-                                <div>Getting Started with AI on Jetson Nano</div>
-                            </div>
-                            <span class="text-gray-500">&lt;/provider&gt;</span>
-                        </div>
-
-                        <div class="group">
-                            <span class="text-gray-500">&lt;provider name="</span><span class="text-vscode-orange">NVIDIA Academy</span><span class="text-gray-500">"&gt;</span>
-                            <div class="pl-4 text-vscode-green border-l border-gray-800 ml-1">
-                                <div>AI for All: From Basics to GenAI Practice</div>
-                                <div>InfiniBand Essentials & RoCE</div>
-                            </div>
-                            <span class="text-gray-500">&lt;/provider&gt;</span>
-                        </div>
-
-                        <div class="group">
-                            <span class="text-gray-500">&lt;provider name="</span><span class="text-vscode-orange">IBM & Cisco</span><span class="text-gray-500">"&gt;</span>
-                            <div class="pl-4 text-vscode-green border-l border-gray-800 ml-1">
-                                <div>Artificial Intelligence Fundamentals (IBM)</div>
-                                <div>Ethical Hacker (Cisco)</div>
-                            </div>
-                            <span class="text-gray-500">&lt;/provider&gt;</span>
-                        </div>
-
-                         <div class="group">
-                            <span class="text-gray-500">&lt;provider name="</span><span class="text-vscode-orange">Udemy</span><span class="text-gray-500">"&gt;</span>
-                            <div class="pl-4 text-vscode-green border-l border-gray-800 ml-1">
-                                <div>Concurrency, Multithreading, and Parallel Computing in Java</div>
-                                <div>Java Application Performance and Memory Management</div>
-                                <div>Software Architect Guide</div>
-                            </div>
-                            <span class="text-gray-500">&lt;/provider&gt;</span>
-                        </div>
-
-                    </div>
-
-                    <div class="font-mono text-vscode-blue mt-6">&lt;/certifications&gt;</div>
-                </div>
-
-                <!-- 7. CONTACT (contact.css) -->
-                <div id="content-contact" class="hidden p-8 max-w-3xl mx-auto h-full flex flex-col justify-center animate-fade-in">
-                    <div class="font-mono text-gray-500 mb-6">.social-links { display: flex; }</div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                        <!-- Left: Form -->
-                        <div class="bg-vscode-sidebar p-6 rounded border border-vscode">
-                            <h3 class="text-white text-xl mb-6 font-semibold">.contact-form</h3>
-                            <form onsubmit="event.preventDefault(); alert('Message sent (Demo)!');">
-                                <div class="mb-4">
-                                    <label class="block text-gray-400 text-xs font-mono mb-1">name:</label>
-                                    <input type="text" class="w-full bg-[#3c3c3c] border border-transparent focus:border-vscode-blue text-white px-3 py-2 rounded focus:outline-none transition font-mono text-sm" placeholder='"Aksh Desai"'>
-                                </div>
-                                <div class="mb-4">
-                                    <label class="block text-gray-400 text-xs font-mono mb-1">email:</label>
-                                    <input type="email" class="w-full bg-[#3c3c3c] border border-transparent focus:border-vscode-blue text-white px-3 py-2 rounded focus:outline-none transition font-mono text-sm" placeholder='"your@email.com"'>
-                                </div>
-                                <div class="mb-6">
-                                    <label class="block text-gray-400 text-xs font-mono mb-1">message:</label>
-                                    <textarea class="w-full bg-[#3c3c3c] border border-transparent focus:border-vscode-blue text-white px-3 py-2 rounded focus:outline-none transition font-mono text-sm h-32" placeholder='"Let'\''s collaborate..."'></textarea>
-                                </div>
-                                <button class="w-full bg-vscode-blue hover:bg-blue-600 text-white font-medium py-2 rounded transition">
-                                    Send Message
-                                </button>
-                            </form>
-                        </div>
-
-                        <!-- Right: Socials -->
-                        <div class="flex flex-col justify-center space-y-6 pl-4 border-l border-gray-800">
-                            <a href="mailto:aksh.h.desai@gmail.com" class="flex items-center group cursor-pointer no-underline">
-                                <div class="w-10 h-10 bg-gray-800 rounded flex items-center justify-center mr-4 group-hover:bg-[#EA4335] transition">
-                                    <i class="fas fa-envelope text-white"></i>
-                                </div>
-                                <div>
-                                    <div class="text-gray-300 font-mono text-sm">aksh.h.desai@gmail.com</div>
-                                    <div class="text-gray-500 text-xs">Email</div>
-                                </div>
-                            </a>
-                            <a href="tel:+916353968666" class="flex items-center group cursor-pointer no-underline">
-                                <div class="w-10 h-10 bg-gray-800 rounded flex items-center justify-center mr-4 group-hover:bg-green-600 transition">
-                                    <i class="fas fa-phone text-white"></i>
-                                </div>
-                                <div>
-                                    <div class="text-gray-300 font-mono text-sm">+(91) 635-396-8666</div>
-                                    <div class="text-gray-500 text-xs">Mobile</div>
-                                </div>
-                            </a>
-                            <a href="https://linkedin.com/in/aksh-desai" target="_blank" class="flex items-center group cursor-pointer no-underline">
-                                <div class="w-10 h-10 bg-gray-800 rounded flex items-center justify-center mr-4 group-hover:bg-[#0077b5] transition">
-                                    <i class="fab fa-linkedin-in text-white"></i>
-                                </div>
-                                <div>
-                                    <div class="text-gray-300 font-mono text-sm">in/aksh-desai</div>
-                                    <div class="text-gray-500 text-xs">LinkedIn</div>
-                                </div>
-                            </a>
-                            <a href="https://github.com/AkshDesai04" target="_blank" class="flex items-center group cursor-pointer no-underline">
-                                <div class="w-10 h-10 bg-gray-800 rounded flex items-center justify-center mr-4 group-hover:bg-[#333] transition">
-                                    <i class="fab fa-github text-white"></i>
-                                </div>
-                                <div>
-                                    <div class="text-gray-300 font-mono text-sm">github.com/AkshDesai04</div>
-                                    <div class="text-gray-500 text-xs">GitHub</div>
-                                </div>
-                            </a>
-                             <a href="https://leetcode.com/akshdesai" target="_blank" class="flex items-center group cursor-pointer no-underline">
-                                <div class="w-10 h-10 bg-gray-800 rounded flex items-center justify-center mr-4 group-hover:bg-[#FFA116] transition">
-                                    <i class="fas fa-code text-white"></i>
-                                </div>
-                                <div>
-                                    <div class="text-gray-300 font-mono text-sm">leetcode.com/akshdesai</div>
-                                    <div class="text-gray-500 text-xs">LeetCode</div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
+            <!-- Main Content -->
+            <div class="flex-1 overflow-y-auto relative custom-scrollbar p-0" id="editor-container">
+                <!-- Content injected via JS -->
             </div>
 
         </div>
-
     </div>
 
     <!-- Status Bar -->
     <div class="h-6 bg-vscode-status text-white flex items-center px-4 text-xs select-none z-20">
         <div class="flex items-center mr-4 hover:bg-white/20 px-2 h-full cursor-pointer">
-            <i class="fas fa-code-branch text-[10px] mr-1"></i>
-            <span>master*</span>
+            <i class="fas fa-code-branch text-[10px] mr-1"></i><span>master*</span>
         </div>
-        <div class="flex items-center mr-4 hover:bg-white/20 px-2 h-full cursor-pointer">
-            <i class="far fa-times-circle text-[10px] mr-1"></i>
-            <span>0</span>
-            <i class="fas fa-exclamation-triangle text-[10px] ml-2 mr-1"></i>
-            <span>0</span>
-        </div>
-        
         <div class="ml-auto flex items-center">
-            <div class="flex items-center mr-4 hover:bg-white/20 px-2 h-full cursor-pointer">
-                <span>Ln 1, Col 1</span>
-            </div>
-            <div class="flex items-center mr-4 hover:bg-white/20 px-2 h-full cursor-pointer">
-                <span>UTF-8</span>
-            </div>
-            <div class="flex items-center hover:bg-white/20 px-2 h-full cursor-pointer">
-                <i class="far fa-bell text-[10px]"></i>
-            </div>
+            <div class="flex items-center mr-4 hover:bg-white/20 px-2 h-full cursor-pointer"><span>Ln 42, Col 12</span></div>
+            <div class="flex items-center hover:bg-white/20 px-2 h-full cursor-pointer"><span>UTF-8</span></div>
+            <div class="flex items-center hover:bg-white/20 px-2 h-full cursor-pointer"><i class="fas fa-bell text-[10px]"></i></div>
         </div>
     </div>
 
-    <!-- JavaScript for Interactions -->
     <script>
-        // Configuration
-        const fileConfig = {
-            'home': { icon: 'fab fa-react', color: '#61dafb', title: 'home.jsx' },
-            'about': { icon: 'fab fa-html5', color: '#e34c26', title: 'about.html' },
-            'projects': { icon: 'fab fa-js', color: '#f7df1e', title: 'projects.js' },
-            'experience': { icon: 'fas fa-code', color: '#dcdcaa', title: 'experience.json' },
-            'education': { icon: 'fab fa-markdown', color: '#569cd6', title: 'education.md' },
-            'certifications': { icon: 'fas fa-file-code', color: '#ce9178', title: 'certifications.xml' },
-            'contact': { icon: 'fab fa-css3-alt', color: '#2965f1', title: 'contact.css' }
+        // --- DATA ---
+        const sections = {
+            'home': {
+                folder: 'HOME',
+                files: [
+                    { name: 'main.py', icon: 'fab fa-python', color: '#3776ab', type: 'visual' }
+                ]
+            },
+            'about': {
+                folder: 'ABOUT',
+                files: [
+                    { name: 'main.py', icon: 'fab fa-python', color: '#3776ab', type: 'visual' },
+                    { name: 'skills.py', icon: 'fab fa-python', color: '#3776ab', type: 'code' }
+                ]
+            },
+            'projects': {
+                folder: 'PROJECTS',
+                files: [
+                    { name: 'main.py', icon: 'fab fa-python', color: '#3776ab', type: 'visual' },
+                    { name: 'gift_city_bot.py', icon: 'fab fa-python', color: '#3776ab', type: 'code' },
+                    { name: 'py8k.py', icon: 'fab fa-python', color: '#3776ab', type: 'code' },
+                    { name: 'cuda_net.py', icon: 'fab fa-python', color: '#3776ab', type: 'code' },
+                    { name: 'passive_pdf_learner.py', icon: 'fab fa-python', color: '#3776ab', type: 'code' },
+                    { name: 'meeting_summarizer.py', icon: 'fab fa-python', color: '#3776ab', type: 'code' },
+                    { name: 'ml_data_server.py', icon: 'fab fa-python', color: '#3776ab', type: 'code' },
+                    { name: 'suicidal_text_detection.py', icon: 'fab fa-python', color: '#3776ab', type: 'code' },
+                    { name: 'open_ats.py', icon: 'fab fa-python', color: '#3776ab', type: 'code' },
+                    { name: 'database_doodle.py', icon: 'fab fa-python', color: '#3776ab', type: 'code' },
+                    { name: 'pyedit_cuda.py', icon: 'fab fa-python', color: '#3776ab', type: 'code' },
+                    { name: 'pycompare_dedup.py', icon: 'fab fa-python', color: '#3776ab', type: 'code' },
+                    { name: 'project_watchdog.py', icon: 'fab fa-python', color: '#3776ab', type: 'code' },
+                    { name: 'system_benchmark.py', icon: 'fab fa-python', color: '#3776ab', type: 'code' },
+                    { name: 'java_chess.py', icon: 'fab fa-python', color: '#3776ab', type: 'code' },
+                    { name: 'time_banking_app.py', icon: 'fab fa-python', color: '#3776ab', type: 'code' },
+                    { name: 'ssd_wireless.py', icon: 'fab fa-python', color: '#3776ab', type: 'code' }
+                ]
+            },
+            'experience': {
+                folder: 'EXPERIENCE',
+                files: [
+                    { name: 'main.py', icon: 'fab fa-python', color: '#3776ab', type: 'visual' },
+                    { name: 'cilans_system.py', icon: 'fab fa-python', color: '#3776ab', type: 'code' },
+                    { name: 'bosleo_tech.py', icon: 'fab fa-python', color: '#3776ab', type: 'code' },
+                    { name: 'hpc_coordinator.py', icon: 'fab fa-python', color: '#3776ab', type: 'code' },
+                    { name: 'atul_ltd.py', icon: 'fab fa-python', color: '#3776ab', type: 'code' },
+                    { name: 'cp_squad.py', icon: 'fab fa-python', color: '#3776ab', type: 'code' },
+                    { name: 'sapient_codelabs.py', icon: 'fab fa-python', color: '#3776ab', type: 'code' }
+                ]
+            },
+            'education': {
+                folder: 'EDUCATION',
+                files: [
+                    { name: 'main.py', icon: 'fab fa-python', color: '#3776ab', type: 'visual' },
+                    { name: 'charusat_btech.py', icon: 'fab fa-python', color: '#3776ab', type: 'code' },
+                    { name: 'tapi_diploma.py', icon: 'fab fa-python', color: '#3776ab', type: 'code' },
+                    { name: 'atul_school.py', icon: 'fab fa-python', color: '#3776ab', type: 'code' }
+                ]
+            },
+            'certificates': {
+                folder: 'CERTIFICATES',
+                files: [
+                    { name: 'main.py', icon: 'fab fa-python', color: '#3776ab', type: 'visual' },
+                    { name: 'nvidia_dli.py', icon: 'fab fa-python', color: '#3776ab', type: 'code' },
+                    { name: 'nvidia_academy.py', icon: 'fab fa-python', color: '#3776ab', type: 'code' },
+                    { name: 'ibm_cisco.py', icon: 'fab fa-python', color: '#3776ab', type: 'code' },
+                    { name: 'udemy.py', icon: 'fab fa-python', color: '#3776ab', type: 'code' }
+                ]
+            },
+            'contact': {
+                folder: 'CONTACT',
+                files: [
+                    { name: 'main.py', icon: 'fab fa-python', color: '#3776ab', type: 'visual' }
+                ]
+            }
         };
 
-        // State
-        let openFiles = ['home']; 
-        let activeFile = 'home';
+        // --- CONTENT GENERATORS ---
 
-        // DOM Elements
-        const tabsContainer = document.getElementById('tabs-container');
-        const editorContent = document.getElementById('editor-content');
-        const breadcrumbFilename = document.getElementById('breadcrumb-filename');
+        function getCodeTemplate(className, parentClass, attributes, methods) {
+            let attrStr = attributes.map(a => `        <span class="syntax-variable">self</span>.${a.key} = <span class="syntax-string">"${a.val}"</span>`).join('<br>');
+            let methodStr = methods.map(m => `
+    <span class="syntax-keyword">def</span> <span class="syntax-function">${m.name}</span>(<span class="syntax-variable">self</span>):
+        <span class="syntax-comment">"""${m.doc}"""</span>
+        <span class="syntax-control">return</span> [
+${m.items.map(i => `            <span class="syntax-string">"${i}"</span>`).join(',<br>')}
+        ]`).join('<br>');
 
-        // Initialize
-        renderTabs();
-        showContent(activeFile);
-
-        // Sidebar Toggle for Mobile
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('-translate-x-full');
+            return `
+<div class="p-8 code-font text-sm leading-relaxed">
+    <div class="mb-4"><span class="syntax-keyword">import</span> datetime</div>
+    <div class="mb-4"><span class="syntax-keyword">from</span> resume <span class="syntax-keyword">import</span> Project, Experience, Education</div>
+    <br>
+    <div><span class="syntax-keyword">class</span> <span class="syntax-class">${className}</span>(${parentClass}):</div>
+    <div class="pl-4">
+        <span class="syntax-keyword">def</span> <span class="syntax-function">__init__</span>(<span class="syntax-variable">self</span>):
+            <span class="syntax-function">super</span>().__init__()
+${attrStr}
+    </div>
+${methodStr}
+</div>`;
         }
 
-        document.getElementById('close-sidebar-mobile').addEventListener('click', () => {
-            document.getElementById('sidebar').classList.add('-translate-x-full');
-        });
+        const fileContents = {
+            // --- HOME ---
+            'home_main.py': `
+                <div class="p-8 md:p-16 max-w-4xl mx-auto h-full flex flex-col justify-center animate-fade-in">
+                    <div class="font-mono text-vscode-blue mb-4">import <span class="text-vscode-green">Torch</span>, <span class="text-vscode-green">CUDA</span> from <span class="text-vscode-orange">'ai-libs'</span>;</div>
+                    <div class="font-mono text-vscode-blue mb-8">class <span class="text-vscode-yellow">AkshDesai</span> extends <span class="text-vscode-green">AI_Engineer</span>:</div>
+                    <div class="pl-4 md:pl-8 border-l-2 border-gray-800">
+                        <h1 class="text-4xl md:text-6xl font-bold text-white mb-4">Hi, I'm <span class="text-vscode-blue">Aksh Desai</span></h1>
+                        <h2 class="text-2xl md:text-3xl text-gray-400 mb-8 flex items-center"><span class="mr-2">></span><span id="typewriter" class="text-vscode-green">AI Engineer | HPC Specialist</span><span class="cursor-blink ml-1 bg-white w-2 h-6 inline-block"></span></h2>
+                        <p class="text-gray-400 max-w-xl text-lg leading-relaxed mb-8">I design and develop scalable hardware and software solutions, optimizing performance from lightweight systems to High-Performance Computing (HPC) environments.</p>
+                        <div class="flex gap-4">
+                            <button onclick="switchSection('projects')" class="bg-vscode-blue hover:bg-blue-600 text-white px-6 py-2 rounded font-medium transition">View Projects</button>
+                            <button onclick="switchSection('contact')" class="border border-white hover:bg-white hover:text-black text-white px-6 py-2 rounded font-medium transition">Contact Me</button>
+                        </div>
+                    </div>
+                </div>`,
 
-        // Folder Toggle
-        function toggleFolder(id, element) {
-            const folder = document.getElementById(id);
-            const icon = element.querySelector('.fa-chevron-down');
+            // --- ABOUT ---
+            'about_main.py': `
+                 <div class="p-8 max-w-5xl mx-auto animate-fade-in">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+                        <div>
+                            <div class="font-mono text-gray-500 mb-2"># About Me</div>
+                            <h2 class="text-3xl font-bold text-white mb-6">Profile Overview</h2>
+                            <p class="text-gray-300 mb-4 leading-relaxed">I am an <b>Intern Software Engineer</b> specializing in GPU server management and resource optimization. I create efficient, adaptable, and impact-driven technologies.</p>
+                            <p class="text-gray-300 mb-6 leading-relaxed">My expertise spans across <b>LLMs, RAG pipelines, CUDA optimization</b>, and <b>HPC environments</b>.</p>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-vscode-blue mb-4">Technical Skills</h3>
+                            <div class="flex flex-wrap gap-2 mb-4"><span class="px-3 py-1 bg-gray-800 rounded text-vscode-yellow text-sm font-mono">Python</span><span class="px-3 py-1 bg-gray-800 rounded text-vscode-yellow text-sm font-mono">Java</span><span class="px-3 py-1 bg-gray-800 rounded text-vscode-yellow text-sm font-mono">Go</span></div>
+                            <div class="flex flex-wrap gap-2 mb-4"><span class="px-3 py-1 bg-gray-800 rounded text-blue-400 text-sm font-mono">PyTorch</span><span class="px-3 py-1 bg-gray-800 rounded text-blue-400 text-sm font-mono">TensorRT</span><span class="px-3 py-1 bg-gray-800 rounded text-blue-400 text-sm font-mono">CUDA</span></div>
+                        </div>
+                    </div>
+                </div>`,
             
-            if (folder.classList.contains('hidden')) {
-                folder.classList.remove('hidden');
-                icon.style.transform = 'rotate(0deg)';
-            } else {
-                folder.classList.add('hidden');
-                icon.style.transform = 'rotate(-90deg)';
+            'about_skills.py': getCodeTemplate('Skills', 'Profile', 
+                [{key:'languages', val:'Python, Java, Go, Dart'}, {key:'databases', val:'MySQL, Redis, FAISS, Pinecone'}], 
+                [{name:'get_ml_stack', doc:'Returns ML frameworks', items:['PyTorch', 'TensorFlow', 'TensorRT', 'LangChain']}, {name:'get_tools', doc:'Returns DevOps & HPC tools', items:['CUDA', 'Docker', 'Kubernetes', 'NVIDIA Nsight']}]),
+
+            // --- PROJECTS ---
+            'projects_main.py': `
+                <div class="p-8 max-w-6xl mx-auto animate-fade-in">
+                    <div class="font-mono text-gray-500 mb-6"># Projects Dashboard</div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="bg-vscode-sidebar border border-vscode rounded p-5 cursor-pointer hover:border-vscode-blue" onclick="openFile('gift_city_bot.py', 'code')"><h3 class="text-lg font-bold text-vscode-blue mb-2">GIFT City GuideBot</h3><p class="text-gray-400 text-sm">AI chatbot using Mistral-Nemo & RAG.</p></div>
+                        <div class="bg-vscode-sidebar border border-vscode rounded p-5 cursor-pointer hover:border-vscode-blue" onclick="openFile('py8k.py', 'code')"><h3 class="text-lg font-bold text-vscode-blue mb-2">Py8K</h3><p class="text-gray-400 text-sm">ESRGAN 8K Upscaling with CUDA.</p></div>
+                        <div class="bg-vscode-sidebar border border-vscode rounded p-5 cursor-pointer hover:border-vscode-blue" onclick="openFile('cuda_net.py', 'code')"><h3 class="text-lg font-bold text-vscode-blue mb-2">CUDA-Net</h3><p class="text-gray-400 text-sm">Distributed CUDA execution system.</p></div>
+                        <div class="bg-vscode-sidebar border border-vscode rounded p-5 cursor-pointer hover:border-vscode-blue" onclick="openFile('ml_data_server.py', 'code')"><h3 class="text-lg font-bold text-vscode-blue mb-2">ML Data Server</h3><p class="text-gray-400 text-sm">300MB/s Local Kaggle-like Server.</p></div>
+                        <div class="bg-vscode-sidebar border border-vscode rounded p-5 cursor-pointer hover:border-vscode-blue" onclick="openFile('open_ats.py', 'code')"><h3 class="text-lg font-bold text-vscode-blue mb-2">Open-ATS</h3><p class="text-gray-400 text-sm">Resume Parser with NLP/OCR.</p></div>
+                    </div>
+                </div>`,
+
+            'projects_gift_city_bot.py': getCodeTemplate('GiftCityBot', 'Project', [{key:'tech', val:'Python, LLM, LangChain, Faiss'}, {key:'model', val:'Mistral-Nemo (128k context)'}], [{name:'features', doc:'Core capabilities', items:['Real-time flight & train assistance', 'Restaurant suggestions based on location', 'Scraped official site for RAG', 'Faiss vector retrieval']}]),
+            'projects_py8k.py': getCodeTemplate('Py8K', 'Project', [{key:'tech', val:'ESRGAN, CUDA, FFMPEG, Python'}, {key:'dataset', val:'40+ TB of video data'}], [{name:'features', doc:'Upscaling pipeline', items:['Accelerated preprocessing using CUDA', 'Scaled to 4 GPUs and 2 CPUs', 'Optimized throughput for 8K video']}]),
+            'projects_cuda_net.py': getCodeTemplate('CUDANet', 'Project', [{key:'tech', val:'Python, Sockets, C++'}, {key:'architecture', val:'Client-Server Distributed'}], [{name:'functionality', doc:'Remote Execution', items:['Execute CUDA on non-CUDA devices', 'Seamless I/O forwarding', 'Multi-client parallel handling']}]),
+            'projects_passive_pdf_learner.py': getCodeTemplate('PassivePDFLearner', 'Project', [{key:'tech', val:'LLAMA 3.1, RAG, AWS, Flutter'}, {key:'type', val:'Mobile App + Backend'}], [{name:'features', doc:'Learning Automation', items:['Daily summary notifications', 'RAG analysis of PDFs', 'Firebase Auth integration']}]),
+            'projects_meeting_summarizer.py': getCodeTemplate('MeetingSummarizer', 'Project', [{key:'tech', val:'NLP, LLMs, Automation'}, {key:'output', val:'PDF Reports & Emails'}], [{name:'process', doc:'Pipeline details', items:['Extract emails from transcripts', 'Generate summary tables', 'Automate distribution']}]),
+            'projects_ml_data_server.py': getCodeTemplate('MLDataServer', 'Project', [{key:'tech', val:'Linux, Redis, RAID, SSD'}, {key:'speed', val:'300 MB/s'}], [{name:'architecture', doc:'Caching Hierarchy', items:['L1: Redis In-Memory', 'L2: SSD Cache', 'L3: 40TB HDD RAID']}]),
+            'projects_suicidal_text_detection.py': getCodeTemplate('SuicideDetection', 'Project', [{key:'tech', val:'NLP, Sentiment Analysis, Bots'}, {key:'accuracy', val:'88%'}], [{name:'integration', doc:'Real-time monitoring', items:['Discord & Telegram Bots', 'Real-time flagging', 'Admin notifications']}]),
+            'projects_open_ats.py': getCodeTemplate('OpenATS', 'Project', [{key:'tech', val:'Python, NLP, RegEx'}, {key:'input', val:'PDF, DOCX, Images'}], [{name:'capabilities', doc:'Resume Parsing', items:['Extract 16 key details', 'OCR for image resumes', 'Candidate ranking system']}]),
+            'projects_database_doodle.py': getCodeTemplate('DatabaseDoodle', 'Project', [{key:'tech', val:'Java, Hibernate, SpringBoot'}, {key:'ui', val:'GUI Based'}], [{name:'features', doc:'Query Tool', items:['Cross-database querying', 'SQL + NoSQL + Flat Files', 'Join chaining support']}]),
+            'projects_pyedit_cuda.py': getCodeTemplate('PyEdit', 'Project', [{key:'tech', val:'Flask, CUDA, OpenCV'}, {key:'type', val:'Image Editor'}], [{name:'features', doc:'Editing Tools', items:['CUDA accelerated filters', 'Brightness/Contrast/Hue', 'Web Interface']}]),
+            'projects_pycompare_dedup.py': getCodeTemplate('PyCompare', 'Project', [{key:'tech', val:'CUDA, Python, NumPy'}, {key:'goal', val:'Deduplication'}], [{name:'performance', doc:'Optimization', items:['GPU offloading', 'Multithreading for TB-scale datasets']}]),
+            'projects_project_watchdog.py': getCodeTemplate('ProjectWatchdog', 'Project', [{key:'tech', val:'OCR, Face Rec, Python'}, {key:'domain', val:'Security'}], [{name:'actions', doc:'Intruder Detection', items:['Capture webcam image', 'Lock device on unauthorized face', 'Log access history']}]),
+            'projects_system_benchmark.py': getCodeTemplate('SystemBenchmark', 'Project', [{key:'tech', val:'C++, Python'}, {key:'target', val:'CPU/GPU/RAM'}], [{name:'scale', doc:'Scalability', items:['From 1 core to 64 cores', 'Support for A100 GPUs']}]),
+            'projects_java_chess.py': getCodeTemplate('JavaChess', 'Project', [{key:'tech', val:'Java AWT, Stockfish'}, {key:'design', val:'SOLID Principles'}], [{name:'gameplay', doc:'Features', items:['Person vs Computer', 'Move analysis', 'Customizable difficulty']}]),
+            'projects_time_banking_app.py': getCodeTemplate('TimeBankingApp', 'Project', [{key:'tech', val:'Flutter, iOS, Hibernate'}, {key:'role', val:'Full Stack Contributor'}], [{name:'tasks', doc:'Development', items:['iOS Build generation', 'Complex backend integration']}]),
+            'projects_ssd_wireless.py': getCodeTemplate('SSDWireless', 'Project', [{key:'tech', val:'IoT, ESP32'}, {key:'protocol', val:'FTP/HTTP'}], [{name:'hardware', doc:'Embedded', items:['WiFi-based SSD access', 'Support 8 concurrent devices']}]),
+
+            // --- EXPERIENCE ---
+            'experience_main.py': `
+                <div class="p-8 max-w-4xl mx-auto animate-fade-in">
+                    <div class="font-mono text-vscode-green mb-6"># Work History</div>
+                    <div class="relative timeline-line pl-8 space-y-8">
+                        <div class="relative z-10"><div class="absolute -left-10 w-4 h-4 rounded-full bg-vscode-blue border-4 border-gray-900 mt-1.5"></div><div class="bg-vscode-sidebar p-6 rounded cursor-pointer hover:border-gray-500 border border-vscode" onclick="openFile('cilans_system.py', 'code')"><h3 class="text-xl font-bold text-vscode-blue">AI Engineer</h3><span class="text-vscode-green font-mono text-sm">Cilans System | Aug 2025 - Present</span></div></div>
+                        <div class="relative z-10"><div class="absolute -left-10 w-4 h-4 rounded-full bg-gray-600 border-4 border-gray-900 mt-1.5"></div><div class="bg-vscode-sidebar p-6 rounded cursor-pointer hover:border-gray-500 border border-vscode" onclick="openFile('bosleo_tech.py', 'code')"><h3 class="text-xl font-bold text-vscode-blue">Software Dev Engineer</h3><span class="text-vscode-green font-mono text-sm">BosLeo Tech | Mar 2025 - Jul 2025</span></div></div>
+                        <div class="relative z-10"><div class="absolute -left-10 w-4 h-4 rounded-full bg-gray-600 border-4 border-gray-900 mt-1.5"></div><div class="bg-vscode-sidebar p-6 rounded cursor-pointer hover:border-gray-500 border border-vscode" onclick="openFile('hpc_coordinator.py', 'code')"><h3 class="text-xl font-bold text-vscode-blue">HPC Coordinator</h3><span class="text-vscode-green font-mono text-sm">Charusat | May 2024 - Jun 2024</span></div></div>
+                    </div>
+                </div>`,
+
+            'experience_cilans_system.py': getCodeTemplate('CilansSystem', 'Experience', [{key:'role', val:'AI Engineer'}, {key:'location', val:'Ahmedabad'}], [{name:'responsibilities', doc:'Key Achievements', items:['Architected RAG system (25M+ tokens)', 'Multi-model workflows (Gemini/OpenAI)', 'Inference time optimization']}]),
+            'experience_bosleo_tech.py': getCodeTemplate('BosLeoTech', 'Experience', [{key:'role', val:'SDE'}, {key:'stack', val:'Go, MySQL, Echo'}], [{name:'work', doc:'Tasks', items:['Built project from scratch', 'Business Analyst responsibilities']}]),
+            'experience_hpc_coordinator.py': getCodeTemplate('HPC_Coordinator', 'Experience', [{key:'role', val:'Server Admin'}, {key:'lab', val:'CSPIT Charusat'}], [{name:'duties', doc:'SysAdmin', items:['Managed User Accounts & RAID arrays', 'Hosted ML Datasets', 'Organized GPU workshops']}]),
+            'experience_atul_ltd.py': getCodeTemplate('AtulLtd', 'Experience', [{key:'role', val:'Intern'}, {key:'tech', val:'Python, Flask'}], [{name:'projects', doc:'Internship', items:['ATS Development', 'Meeting Summarization System']}]),
+            'experience_cp_squad.py': getCodeTemplate('CPSquad', 'Experience', [{key:'role', val:'Tech Coordinator'}, {key:'org', val:'Charusat'}], [{name:'events', doc:'Management', items:['Organized 5+ coding competitions', 'Managed logistics & promotion']}]),
+            'experience_sapient_codelabs.py': getCodeTemplate('SapientCodelabs', 'Experience', [{key:'role', val:'Intern Team Lead'}, {key:'tech', val:'Flutter, Firebase'}], [{name:'leadership', doc:'Team Management', items:['Led team of 6 interns', 'Built Society Mgmt App']}]),
+
+            // --- EDUCATION ---
+            'education_main.py': `
+                <div class="p-8 max-w-4xl mx-auto animate-fade-in">
+                     <div class="font-mono text-gray-400 mb-6"># Education History</div>
+                     <div class="space-y-4">
+                        <div class="bg-vscode-sidebar p-5 border border-vscode rounded cursor-pointer hover:border-vscode-blue" onclick="openFile('charusat_btech.py', 'code')"><h2 class="text-xl font-bold text-white">B.Tech IT</h2><p class="text-vscode-blue">CSPIT - Charusat University</p></div>
+                        <div class="bg-vscode-sidebar p-5 border border-vscode rounded cursor-pointer hover:border-vscode-blue" onclick="openFile('tapi_diploma.py', 'code')"><h2 class="text-xl font-bold text-white">Diploma IT</h2><p class="text-vscode-blue">Tapi Diploma Engineering College</p></div>
+                     </div>
+                </div>`,
+            
+            'education_charusat_btech.py': getCodeTemplate('BTech_IT', 'Education', [{key:'college', val:'CSPIT - Charusat'}, {key:'year', val:'2026'}], [{name:'activities', doc:'Campus Life', items:['Organized Hackathons (1200+ attendees)', 'Administered 4 HPC Servers', 'Anti-Ragging Coordinator']}]),
+            'education_tapi_diploma.py': getCodeTemplate('Diploma_IT', 'Education', [{key:'college', val:'Tapi Diploma'}, {key:'year', val:'2023'}], [{name:'achievements', doc:'Projects', items:['Developed 10+ small scale projects', 'Led student groups']}]),
+            'education_atul_school.py': getCodeTemplate('School', 'Education', [{key:'board', val:'ICSE'}, {key:'year', val:'2020'}], [{name:'info', doc:'Schooling', items:['Atul Vidyalaya']}]),
+
+            // --- CERTIFICATES ---
+            'certificates_main.py': `
+                 <div class="p-8 max-w-4xl mx-auto animate-fade-in">
+                     <div class="font-mono text-gray-400 mb-6"># Certifications</div>
+                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-vscode-sidebar p-4 border border-vscode rounded cursor-pointer" onclick="openFile('nvidia_dli.py', 'code')">NVIDIA DLI</div>
+                        <div class="bg-vscode-sidebar p-4 border border-vscode rounded cursor-pointer" onclick="openFile('nvidia_academy.py', 'code')">NVIDIA Academy</div>
+                        <div class="bg-vscode-sidebar p-4 border border-vscode rounded cursor-pointer" onclick="openFile('ibm_cisco.py', 'code')">IBM & Cisco</div>
+                     </div>
+                 </div>`,
+            
+            'certificates_nvidia_dli.py': getCodeTemplate('NVIDIA_DLI', 'Certification', [{key:'issuer', val:'NVIDIA'}], [{name:'courses', doc:'Deep Learning', items:['Scaling Workloads with CUDA C++', 'Optimizing CUDA with Nsight', 'Accelerated Computing with CUDA Python']}]),
+            'certificates_nvidia_academy.py': getCodeTemplate('NVIDIA_Academy', 'Certification', [{key:'issuer', val:'NVIDIA'}], [{name:'courses', doc:'Networking & AI', items:['InfiniBand Essentials', 'RoCE from A to Z', 'GenAI Practice']}]),
+            'certificates_ibm_cisco.py': getCodeTemplate('IndustryCerts', 'Certification', [{key:'issuer', val:'IBM / Cisco'}], [{name:'courses', doc:'Fundamentals', items:['IBM AI Fundamentals', 'Cisco Ethical Hacker']}]),
+            'certificates_udemy.py': getCodeTemplate('Udemy', 'Certification', [{key:'platform', val:'Udemy'}], [{name:'courses', doc:'Self Paced', items:['Java Multithreading', 'Software Architecture', 'Java Memory Management']}]),
+
+            // --- CONTACT ---
+            'contact_main.py': `
+                <div class="p-8 max-w-3xl mx-auto animate-fade-in">
+                    <div class="font-mono text-gray-500 mb-6"># Contact Me</div>
+                    <div class="bg-vscode-sidebar p-6 rounded border border-vscode">
+                        <div class="space-y-4 font-mono text-sm">
+                            <div class="flex"><span class="text-vscode-blue w-24">Email:</span> <a href="mailto:aksh.h.desai@gmail.com" class="text-gray-300 hover:text-white">aksh.h.desai@gmail.com</a></div>
+                            <div class="flex"><span class="text-vscode-blue w-24">Phone:</span> <span class="text-gray-300">+(91) 635-396-8666</span></div>
+                            <div class="flex"><span class="text-vscode-blue w-24">LinkedIn:</span> <a href="https://linkedin.com/in/aksh-desai" target="_blank" class="text-gray-300 hover:text-white">in/aksh-desai</a></div>
+                            <div class="flex"><span class="text-vscode-blue w-24">GitHub:</span> <a href="https://github.com/AkshDesai04" target="_blank" class="text-gray-300 hover:text-white">AkshDesai04</a></div>
+                        </div>
+                    </div>
+                </div>`
+        };
+
+        // --- STATE & LOGIC ---
+        let currentSection = 'home';
+        let openTabs = [];
+        let activeFile = null;
+
+        const sidebarTitle = document.getElementById('sidebar-title');
+        const folderName = document.getElementById('folder-name');
+        const folderContent = document.getElementById('folder-content');
+        const tabsContainer = document.getElementById('tabs-container');
+        const editorContainer = document.getElementById('editor-container');
+        const breadcrumbSection = document.getElementById('breadcrumb-section');
+        const breadcrumbFile = document.getElementById('breadcrumb-file');
+
+        function switchSection(sectionId) {
+            currentSection = sectionId;
+            
+            // Update Activity Bar UI
+            document.querySelectorAll('.activity-item').forEach(el => el.classList.remove('active'));
+            event.currentTarget ? event.currentTarget.classList.add('active') : document.querySelector(`[onclick="switchSection('${sectionId}')"]`).classList.add('active');
+
+            // Update Sidebar UI
+            folderName.innerText = sections[sectionId].folder;
+            renderSidebarFiles(sectionId);
+
+            // Open Mobile Sidebar if closed
+            const sidebar = document.getElementById('sidebar');
+            if(window.innerWidth < 768 && sidebar.classList.contains('-translate-x-full')) {
+                sidebar.classList.remove('-translate-x-full');
             }
+
+            // Open main.py for this section by default if no tabs open
+            openFile('main.py', 'visual'); 
         }
 
-        // Open File Logic
-        function openFile(fileId) {
-            if (!openFiles.includes(fileId)) {
-                openFiles.push(fileId);
+        function renderSidebarFiles(sectionId) {
+            const files = sections[sectionId].files;
+            folderContent.innerHTML = files.map(file => `
+                <div class="flex items-center px-6 py-1 cursor-pointer text-gray-400 hover:bg-[#2a2d2e] hover:text-white transition border-l-2 border-transparent hover:border-white" onclick="openFile('${file.name}', '${file.type}')">
+                    <i class="${file.icon} mr-2 w-4 text-center" style="color: ${file.color}"></i>
+                    <span>${file.name}</span>
+                </div>
+            `).join('');
+        }
+
+        function openFile(fileName, type) {
+            const fullKey = fileName === 'main.py' ? `${currentSection}_${fileName}` : `${currentSection}_${fileName}`;
+            // Correct key mapping for files that might be unique across sections
+            // Actually, we need to ensure unique keys. 
+            // For main.py, we prefix with section. For unique files like 'gift_city.py', we can look them up directly or use prefix.
+            // Simplified: Always prefix with current section for lookup in fileContents
+            
+            let contentKey = fileName === 'main.py' ? `${currentSection}_main.py` : `${currentSection}_${fileName}`;
+            
+            // Check if file exists in active section files, otherwise might be cross-reference (unlikely in this design)
+            // But let's fix the key logic for sidebar clicks
+            
+            // Logic:
+            // 1. If sidebar click, we know the section.
+            // 2. We construct ID.
+            
+            if (!openTabs.find(t => t.key === contentKey)) {
+                openTabs.push({ name: fileName, key: contentKey, type: type, section: currentSection });
             }
-            setActiveFile(fileId);
-            renderTabs();
-            // On mobile, close sidebar after selection
+            
+            setActiveTab(contentKey);
+            
+            // Mobile: Close sidebar
             if(window.innerWidth < 768) {
                 document.getElementById('sidebar').classList.add('-translate-x-full');
             }
         }
 
-        // Close File Logic
-        function closeFile(e, fileId) {
-            e.stopPropagation(); // Prevent clicking the tab itself
+        function setActiveTab(key) {
+            activeFile = key;
+            renderTabs();
+            renderContent(key);
             
-            openFiles = openFiles.filter(f => f !== fileId);
-            
-            if (openFiles.length === 0) {
-                activeFile = null;
-                // Default to home if closed all
-                openFiles.push('home');
-                activeFile = 'home';
-            } else if (activeFile === fileId) {
-                activeFile = openFiles[openFiles.length - 1];
+            // Update Breadcrumbs
+            const tab = openTabs.find(t => t.key === key);
+            if(tab) {
+                breadcrumbSection.innerText = tab.section;
+                breadcrumbFile.innerText = tab.name;
             }
-            
-            renderTabs();
-            showContent(activeFile);
         }
 
-        // Set Active File
-        function setActiveFile(fileId) {
-            activeFile = fileId;
-            showContent(fileId);
-            renderTabs();
+        function closeTab(e, key) {
+            e.stopPropagation();
+            openTabs = openTabs.filter(t => t.key !== key);
+            if(openTabs.length === 0) {
+                // If all closed, default to home main
+                switchSection('home');
+            } else if (activeFile === key) {
+                setActiveTab(openTabs[openTabs.length - 1].key);
+            } else {
+                renderTabs();
+            }
         }
 
-        // Render Tabs
         function renderTabs() {
-            tabsContainer.innerHTML = '';
-            
-            openFiles.forEach(fileId => {
-                const config = fileConfig[fileId];
-                const isActive = fileId === activeFile;
-                
-                const tab = document.createElement('div');
-                tab.className = `tab-item min-w-[120px] max-w-[200px] h-full flex items-center px-3 border-r border-vscode cursor-pointer select-none ${isActive ? 'bg-vscode-tab-active text-white border-t-2 border-t-vscode-blue' : 'bg-vscode-tab-inactive text-gray-500 border-t-2 border-t-transparent'}`;
-                tab.onclick = () => setActiveFile(fileId);
-                
-                tab.innerHTML = `
-                    <i class="${config.icon} mr-2 text-xs" style="color: ${config.color}"></i>
-                    <span class="mr-2 text-xs truncate">${config.title}</span>
-                    <span class="tab-close ml-auto w-4 h-4 flex items-center justify-center rounded hover:bg-gray-700 opacity-0 transition-opacity" onclick="closeFile(event, '${fileId}')">
+            tabsContainer.innerHTML = openTabs.map(tab => {
+                const isActive = tab.key === activeFile;
+                // Find styling info
+                const fileInfo = sections[tab.section].files.find(f => f.name === tab.name);
+                const icon = fileInfo ? fileInfo.icon : 'fas fa-file';
+                const color = fileInfo ? fileInfo.color : '#ccc';
+
+                return `
+                <div class="tab-item min-w-[120px] max-w-[200px] h-full flex items-center px-3 border-r border-vscode cursor-pointer select-none ${isActive ? 'bg-vscode-tab-active text-white border-t-2 border-t-vscode-blue' : 'bg-vscode-tab-inactive text-gray-500 border-t-2 border-t-transparent'}" onclick="setActiveTab('${tab.key}')">
+                    <i class="${icon} mr-2 text-xs" style="color: ${color}"></i>
+                    <span class="mr-2 text-xs truncate">${tab.name}</span>
+                    <span class="tab-close ml-auto w-4 h-4 flex items-center justify-center rounded hover:bg-gray-700 opacity-0 transition-opacity" onclick="closeTab(event, '${tab.key}')">
                         <i class="fas fa-times text-[10px]"></i>
                     </span>
-                `;
-                
-                tabsContainer.appendChild(tab);
-            });
+                </div>`;
+            }).join('');
         }
 
-        // Show Content
-        function showContent(fileId) {
-            document.querySelectorAll('[id^="content-"]').forEach(el => {
+        function renderContent(key) {
+            const content = fileContents[key] || '<div class="p-8 text-gray-500">// Content loading or not found...</div>';
+            editorContainer.innerHTML = content;
+        }
+
+        function toggleFolder(id) {
+            const el = document.getElementById(id);
+            const icon = document.getElementById('folder-icon');
+            if (el.classList.contains('hidden')) {
+                el.classList.remove('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            } else {
                 el.classList.add('hidden');
-            });
-            
-            if (fileId) {
-                const contentElement = document.getElementById(`content-${fileId}`);
-                if(contentElement) {
-                    contentElement.classList.remove('hidden');
-                    contentElement.classList.remove('animate-fade-in');
-                    void contentElement.offsetWidth; // trigger reflow
-                    contentElement.classList.add('animate-fade-in');
-                }
-                
-                breadcrumbFilename.innerText = fileConfig[fileId].title;
+                icon.style.transform = 'rotate(-90deg)';
             }
         }
 
-        // Typewriter Effect for Home
-        const textToType = "AI Engineer | HPC Specialist";
-        const typeWriterElement = document.getElementById('typewriter');
-        let i = 0;
-        
+        function toggleSidebar() {
+            const sb = document.getElementById('sidebar');
+            sb.classList.toggle('-translate-x-full');
+        }
+
+        document.getElementById('close-sidebar-mobile').addEventListener('click', toggleSidebar);
+
+        // Init
+        switchSection('home');
+
+        // Typewriter effect
         function typeWriter() {
-            if (i < textToType.length) {
-                typeWriterElement.innerHTML = textToType.substring(0, i+1);
-                i++;
-                setTimeout(typeWriter, 100);
+            const el = document.getElementById('typewriter');
+            if(el) {
+                const text = "AI Engineer | HPC Specialist";
+                let i = 0;
+                el.innerHTML = "";
+                const timer = setInterval(() => {
+                    if (i < text.length) {
+                        el.innerHTML += text.charAt(i);
+                        i++;
+                    } else {
+                        clearInterval(timer);
+                    }
+                }, 100);
             }
         }
-        
         setTimeout(typeWriter, 500);
 
     </script>
